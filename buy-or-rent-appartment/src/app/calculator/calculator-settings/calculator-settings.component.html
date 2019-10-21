@@ -1,0 +1,78 @@
+<div class="container" novalidate>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form" fxLayout="column"
+        fxLayoutAlign="space-around stretch">
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Appartment Cost / Mortgage" formControlName="appartment_cost">
+            <mat-error
+                *ngIf="!formGroup.controls['appartment_cost'].valid && formGroup.controls['appartment_cost'].touched">
+                Appartment Cost / Mortgage is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Mortgage Interest Rate, % per year"
+                formControlName="mortgate_interest_rate">
+            <mat-error
+                *ngIf="!formGroup.controls['mortgate_interest_rate'].valid && formGroup.controls['mortgate_interest_rate'].touched">
+                Mortgage Interest Rate is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Mortgate Loan Term, years" formControlName="mortgage_loan_term">
+            <mat-error
+                *ngIf="!formGroup.controls['mortgage_loan_term'].valid && formGroup.controls['mortgage_loan_term'].touched">
+                Appartment Loan Term is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Appartment Rent" formControlName="appartment_rent">
+            <mat-error
+                *ngIf="!formGroup.controls['appartment_rent'].valid && formGroup.controls['appartment_rent'].touched">
+                Appartment Rent is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Appartment Cost Growth, % per year"
+                formControlName="appartment_cost_growth_percents">
+            <mat-error
+                *ngIf="!formGroup.controls['appartment_cost_growth_percents'].valid && formGroup.controls['appartment_cost_growth_percents'].touched">
+                Appartment Cost Growth is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Investments, % of return per year"
+                formControlName="investments_percents">
+            <mat-error
+                *ngIf="!formGroup.controls['investments_percents'].valid && formGroup.controls['investments_percents'].touched">
+                Investments is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Income to spend for rent & investments, per month"
+                formControlName="income_for_rent_and_investments">
+            <mat-error
+                *ngIf="!formGroup.controls['income_for_rent_and_investments'].valid && formGroup.controls['income_for_rent_and_investments'].touched">
+                Income to spend for rent & investments, per month is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="How far to calculate, years" formControlName="period_years">
+            <mat-error *ngIf="!formGroup.controls['period_years'].valid && formGroup.controls['period_years'].touched">
+                How far to calculate is required.
+            </mat-error>
+        </mat-form-field>
+
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button"
+                [disabled]="!formGroup.valid">Calculate</button>
+        </div>
+
+    </form>
+</div>

@@ -1,21 +1,30 @@
-<div class="alert" *ngIf="resultItems.length !== 0">
-    <span>
-        Results below are not a legal advice. Also some additional fees can be applied to equity.
-    </span>
-</div>
+<ng-container *ngIf="resultItems.length !== 0">
+    <div class="alert" *ngIf="resultItems.length !== 0">
+        <span>
+            Results below are not a legal advice. Also some additional fees can be applied to equity.
+        </span>
+    </div>
 
-<table *ngIf="resultItems.length !== 0">
-    <tr>
-        <th>Year</th>
-        <th>Total Income - Renting</th>
-        <th>Total Income - Buying</th>
-    </tr>
-    <tr *ngFor="let item of resultItems">
-        <td>{{item.YearNo}}</td>
-        <td>{{item.RentIncomeTotal}}</td>
-        <td>Investments: {{item.BuyIncomeTotal}}
-            Debt: {{item.BuyIncomeRemainingDebt > 0.1 ? item.BuyIncomeRemainingDebt : 'None' }}
-            Equity: {{item.BuyEquityCost}}
-        </td>
-    </tr>
-</table>
+    <table *ngIf="resultItems.length !== 0">
+        <tr>
+            <th>Year</th>
+            <th>Total Income - Renting</th>
+            <th>Total Income - Buying</th>
+        </tr>
+        <tr *ngFor="let item of resultItems">
+            <td>{{item.YearNo}}</td>
+            <td>{{item.RentIncomeTotal}}</td>
+            <td>Investments: {{item.BuyIncomeTotal}}
+                Debt: {{item.BuyIncomeRemainingDebt > 0.1 ? item.BuyIncomeRemainingDebt : 'None' }}
+                Equity: {{item.BuyEquityCost}}
+            </td>
+        </tr>
+    </table>
+
+    <div class="flex flex-item" style="display: block;">
+        <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+            [chartType]="lineChartType" [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+    </div>
+</ng-container>

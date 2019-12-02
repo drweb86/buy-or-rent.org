@@ -5,7 +5,7 @@ import { CalculatorSettingsComponent } from './calculator-settings/calculator-se
 import { CalculatorResultsComponent } from './calculator-results/calculator-results.component';
 import { AngularAndMaterialModule } from '../angular-and-material/angular-and-material.module';
 import { CalculatorService } from './services/calculator.service';
-
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -13,6 +13,7 @@ import { CalculatorService } from './services/calculator.service';
   imports: [
     CommonModule,
     AngularAndMaterialModule,
+    ChartsModule,
   ],
   exports: [CalculatorComponent],
   providers: [CalculatorService],

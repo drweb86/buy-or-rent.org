@@ -1,11 +1,11 @@
-<ng-container *ngIf="resultItems.length !== 0">
-    <div class="alert" *ngIf="resultItems.length !== 0">
+<div [hidden]="resultItems.length === 0">
+    <div class="alert">
         <span>
             Results below are not a legal advice. Also some additional fees can be applied to equity.
         </span>
     </div>
 
-    <table *ngIf="resultItems.length !== 0">
+    <table>
         <tr>
             <th>Year</th>
             <th>Total Income - Renting</th>
@@ -26,4 +26,4 @@
             [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
             [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
     </div>
-</ng-container>
+</div>

@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, Input, ViewChild, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CalculatorResultItem } from '../models/calculated-result-item';
-import { BaseChartDirective, Label, Color } from 'ng2-charts';
+import { Label, Color } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 
@@ -13,6 +13,8 @@ export class CalculatorResultsComponent implements OnChanges {
   @Input() resultItems: CalculatorResultItem[];
 
   lineChartData: ChartDataSets[] = [
+    { data: [], label: 'Total Income - Renting' },
+    { data: [], label: 'Total Income - Buying' },
   ];
   lineChartLabels: Label[] = [];
   lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -77,26 +79,26 @@ export class CalculatorResultsComponent implements OnChanges {
   lineChartType = 'line';
   lineChartPlugins = [pluginAnnotations];
 
-  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  ngOnChanges(changes: SimpleChanges): void {
+    const resultItems = changes.resultItems.currentValue;
 
-  ngOnChanges(): void {
-    if (this.resultItems === undefined ||
-      this.resultItems.length === 0) {
+    if (resultItems === undefined ||
+      resultItems.length === 0) {
       return;
     }
 
-    this.lineChartLabels = this.resultItems
-      .map(z => this.resultItems.length < 20 ? `Year ${z.YearNo}` : `${z.YearNo}`);
+    this.lineChartLabels = resultItems
+      .map(z => resultItems.length < 20 ? `Year ${z.YearNo}` : `${z.YearNo}`);
 
-    this.lineChartData = [
+    const newLineChartData = [
       { data: [], label: 'Total Income - Renting' },
       { data: [], label: 'Total Income - Buying' },
     ];
-    this.resultItems.forEach(item => {
-      this.lineChartData[0].data.push(item.RentIncomeTotal);
-      this.lineChartData[1].data.push(item.BuyIncomeTotal - item.BuyIncomeRemainingDebt + item.BuyEquityCost);
+    resultItems.forEach(item => {
+      newLineChartData[0].data.push(item.RentIncomeTotal);
+      newLineChartData[1].data.push(item.BuyIncomeTotal - item.BuyIncomeRemainingDebt + item.BuyEquityCost);
     });
 
-    this.chart.update();
+    this.lineChartData = newLineChartData;
   }
 }

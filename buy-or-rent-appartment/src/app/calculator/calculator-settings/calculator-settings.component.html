@@ -71,7 +71,7 @@
 
         <div class="form-element">
             <button mat-raised-button color="primary" type="submit" class="button"
-                [disabled]="!formGroup.valid">Calculate</button>
+                [disabled]="!formGroup.valid || operationInProgress">{{operationInProgress ? 'Calculating...' : 'Calculate' }}</button>
         </div>
 
     </form>

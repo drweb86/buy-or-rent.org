@@ -11,6 +11,7 @@ export class CalculatorSettingsComponent implements OnInit {
   @Output() onCalculate: EventEmitter<CalculatorSettings> = new EventEmitter();
 
   formGroup: FormGroup;
+  operationInProgress = false;
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -32,7 +33,7 @@ export class CalculatorSettingsComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     const eventArgs: CalculatorSettings = {
       AppartmentCost: +this.formGroup.controls.appartment_cost.value,
       MortgageInterestRate: +this.formGroup.controls.mortgate_interest_rate.value,
@@ -44,6 +45,18 @@ export class CalculatorSettingsComponent implements OnInit {
       PeriodYears: +this.formGroup.controls.period_years.value,
     }
 
-    this.onCalculate.emit(eventArgs);
+    this.operationInProgress = true;
+    await this.wait();
+    try {
+      this.onCalculate.emit(eventArgs);
+    } finally {
+      this.operationInProgress = false;
+    }
+  }
+
+  private wait(): Promise<void> {
+    return new Promise<void>(resolve => {
+      setTimeout(resolve, 500);
+    });
   }
 }
